@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IIIT Vadodara Campus Event Board</title>
+  <meta name="description" content="Campus Event Board for IIIT Vadodara, featuring events, schedules, registration, rules, and contact information.">
+
+  <link rel="icon" href="favicon.png">
+
+  <meta property="og:title" content="IIIT Vadodara Campus Event Board">
+  <meta property="og:description" content="Explore campus events, upcoming activities, schedules, registration, and event guidelines at IIIT Vadodara.">
+  <meta property="og:image" content="concert.jpeg">
+
+
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="theme-dark.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-tools">
+      <a href="#main" class="skip">Skip to content</a>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false">Dark mode</button>
+    </div>
+    <img
+      src="./logo.jpeg"
+      alt="IIIT Vadodara logo"
+      width="200"
+      height="200"
+    >
+
+    <h1>IIIT Vadodara Campus Event Board</h1>
+
+    <p>
+      <strong>Let's build memories together!</strong>
+    </p>
+  </header>
+
+
+  <nav>
+    <div class="nav-links">
+      <a href="#events" class="active">Our Events</a>
+      <a href="#event-list">List of Events</a>
+      <a href="#upcoming">Upcoming Event</a>
+      <a href="#submit-event">Submit an Event</a>
+      <a href="#event-table">Event Schedule</a>
+      <a href="#rules">Rules</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+    <button type="button" class="hamburger" aria-label="Open navigation menu" aria-expanded="false">Menu</button>
+  </nav>
+
+  <main id="main">
+
+    <section id="events" class="events">
+      <h2>Our Events</h2>
+
+      <!-- B23: class selector deliberately conflicts with article selector -->
+      <article>
+        <img
+          src="./cultural.jpg"
+          alt="Students participating in a cultural event"
+          width="200"
+          height="160"
+          loading="lazy"
+          decoding="async"
+        >
+        <h3>Cultural Event</h3>
+        <p>
+          A campus celebration featuring cultural performances and activities.
+        </p>
+      </article>
+
+      <article>
+        <img
+          src="./dance.jpeg"
+          alt="Students performing in a dance competition"
+          width="200"
+          height="160"
+          loading="lazy"
+          decoding="async"
+        >
+        <h3>Dance Competition</h3>
+        <p>
+          A student dance competition showcasing individual and group performances.
+        </p>
+      </article>
+
+      <article>
+        <img
+          src="./quiz.jpeg"
+          alt="Students taking part in a quiz competition"
+          width="200"
+          height="160"
+          loading="lazy"
+          decoding="async"
+        >
+        <h3>Quiz Competition</h3>
+        <p>
+          An academic quiz that challenges students' knowledge and quick thinking.
+        </p>
+      </article>
+
+      <article>
+        <img
+          src="./photography.jpeg"
+          alt="Photography competition entry displayed for students"
+          width="200"
+          height="160"
+          loading="lazy"
+          decoding="async"
+        >
+        <h3>Photography</h3>
+        <p>
+          A creative competition for students interested in photography.
+        </p>
+      </article>
+
+      <article>
+        <img
+          src="./sports.jpeg"
+          alt="Students participating in a sports meet"
+          width="200"
+          height="160"
+          loading="lazy"
+          decoding="async"
+        >
+        <h3>Sports Meet</h3>
+        <p>
+          A campus sports event with activities for student participants.
+        </p>
+      </article>
+
+      <article>
+        <img
+          src="./hack.png"
+          alt="Technology event banner for the CodeSprint Hackathon"
+          width="200"
+          height="160"
+          loading="lazy"
+          decoding="async"
+        >
+        <h3>CodeSprint Hackathon</h3>
+        <p>
+          A technical hackathon where students build useful solutions and present their ideas.
+        </p>
+      </article>
+    </section>
+
+    <!-- event list section -->
+    <section id="event-list" class="event-list">
+      <h2>List of Events</h2>
+
+      <ul>
+        <li>
+          Cultural Event -
+          <time datetime="2026-08-20">20 August 2026</time>
+        </li>
+
+        <li>
+          Dance Competition -
+          <time datetime="2026-08-20">20 August 2026</time>
+        </li>
+
+        <li>
+          Quiz Competition -
+          <time datetime="2026-08-21">21 August 2026</time>
+        </li>
+
+        <li>
+          Photography Competition -
+          <time datetime="2026-08-21">21 August 2026</time>
+        </li>
+
+        <li>
+          Sports Meet -
+          <time datetime="2026-08-21">21 August 2026</time>
+          to
+          <time datetime="2026-08-23">23 August 2026</time>
+        </li>
+
+        <li>
+          CodeSprint Hackathon -
+          <time datetime="2026-10-18">18 October 2026</time>
+        </li>
+      </ul>
+    </section>
+
+    <!-- upcoming event section -->
+    <section id="upcoming" class="upcoming">
+      <h2>Upcoming Major Event</h2>
+
+      <figure>
+        <img
+          src="./concert.jpeg"
+          alt="College concert with live performances"
+          width="500"
+          height="250"
+          loading="lazy"
+          decoding="async"
+        >
+        <figcaption>
+          Live concert planned for the IIIT Vadodara campus.
+        </figcaption>
+      </figure>
+
+      <h3>IIIT Vadodara Live Concert 2026</h3>
+
+      <p>
+        Join us for an exciting musical evening with live performances,
+        student bands, food stalls, and lots of fun!
+      </p>
+
+      <p>
+        <strong>Date:</strong>
+        <time datetime="2026-09-05">5 September 2026</time>
+      </p>
+
+      <p>
+        <strong>Time:</strong> 6:00 PM onwards
+      </p>
+
+      <p>
+        <strong>Venue:</strong> IIIT Vadodara College Ground
+      </p>
+
+      <a href="#submit-event">Register for Event</a>
+    </section>
+
+    <!-- event submission section -->
+    <section id="submit-event" class="submit-event">
+      <h2>Submit an Event</h2>
+
+      <form action="sucess.html" method="get">
+
+        <p>
+          <label for="event-name">Event Name:</label>
+          <input
+            type="text"
+            id="event-name"
+            name="event-name"
+            placeholder="Enter event name"
+            required
+          >
+        </p>
+
+        <p>
+          <label for="event-email">Email:</label>
+          <input
+            type="email"
+            id="event-email"
+            name="event-email"
+            placeholder="you@example.com"
+            required
+          >
+        </p>
+
+        <p>
+          <label for="event-date">Event Date:</label>
+          <input
+            type="date"
+            id="event-date"
+            min="2026-09-24"
+            max="2027-03-24"
+            name="event-date"
+            required
+          >
+        </p>
+
+        <p>
+          <label for="event-location">Location:</label>
+          <input
+            type="text"
+            id="event-location"
+            name="event-location"
+            placeholder="Enter event location"
+            required
+          >
+        </p>
+
+        <p>
+          <label for="event-description">Description:</label>
+          <textarea
+            id="event-description"
+            name="event-description"
+            placeholder="Describe the event"
+            rows="5"
+            cols="40"
+            required
+          ></textarea>
+        </p>
+
+        <button type="submit">Submit</button>
+
+      </form>
+    </section>
+
+    <!-- event schedule section -->
+    <section id="event-table" class="event-table">
+      <h2>Event Categories and Meeting Days</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Event Category</th>
+            <th scope="col">Event</th>
+            <th scope="col">Day</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Cultural</td>
+            <td>Cultural Event</td>
+            <td>Thursday</td>
+          </tr>
+
+          <tr>
+            <td>Competition</td>
+            <td>Dance Competition</td>
+            <td>Thursday</td>
+          </tr>
+
+          <tr>
+            <td>Academic</td>
+            <td>Quiz Competition</td>
+            <td>Friday</td>
+          </tr>
+
+          <tr>
+            <td>Creative</td>
+            <td>Photography Competition</td>
+            <td>Friday</td>
+          </tr>
+
+          <tr>
+            <td>Sports</td>
+            <td>Sports Meet</td>
+            <td>Saturday</td>
+          </tr>
+
+          <tr>
+            <td>Technical</td>
+            <td>CodeSprint Hackathon</td>
+            <td>Saturday</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- rules section -->
+    <section id="rules" class="rules">
+      <h2>Rules and Guidelines</h2>
+
+      <ol>
+        <li>Students must register before the event date.</li>
+        <li>Participants should report at the venue 15 minutes early.</li>
+        <li>Students must carry their college ID card.</li>
+        <li>Judges' decision will be final.</li>
+        <li>Maintain discipline during all events.</li>
+      </ol>
+    </section>
+
+    <!-- faq section -->
+    <section id="faq" class="faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <details>
+        <summary>How can I submit an event?</summary>
+        <p>
+          Complete the event submission form and select the
+          <kbd>Submit</kbd> button.
+        </p>
+      </details>
+
+      <details>
+        <summary>What happens after I submit the form?</summary>
+        <p>
+          The browser displays the sample result
+          <samp>Registration Successful!</samp>
+          after the form is submitted.
+        </p>
+      </details>
+    </section>
+
+    <!-- meaningful text elements section -->
+    <section id="information" class="information">
+      <h2>About the Event Board</h2>
+
+      <p>
+        <abbr title="Indian Institute of Information Technology">IIIT</abbr>
+        Vadodara uses this board to share campus activities.
+      </p>
+
+      <p>
+        For technical information, the page uses the HTML element
+        <code>&lt;article&gt;</code> for individual event cards.
+      </p>
+
+      <p>
+        <mark>Event information should be checked before attending.</mark>
+      </p>
+    </section>
+
+  </main>
+
+  <!-- footer -->
+  <footer id="contact">
+
+    <nav>
+      <a href="#main">Home</a>
+      <a href="#events">Events</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <address>
+      Email:
+      <a href="mailto:events@iiitvadodara.ac.in">
+        events@iiitvadodara.ac.in
+      </a>
+      <br>
+
+      Phone:
+      <a href="tel:+911234567890">
+        +91 1234567890
+      </a>
+      <br>
+
+      <a href="https://iiitvadodara.ac.in/">
+        IIIT Vadodara, Gujarat
+      </a>
+    </address>
+
+    <p>
+      &copy; 2026 IIIT Vadodara Campus Event Board.
+      All Rights Reserved.
+    </p>
+
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById("theme-toggle");
+    const eventDate = document.getElementById("event-date");
+    const eventForm = document.querySelector(".submit-event form");
+
+    function formatDate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    const today = new Date();
+    const sixMonthsLater = new Date(today);
+    sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
+
+    eventDate.min = formatDate(today);
+    eventDate.max = formatDate(sixMonthsLater);
+
+    eventForm.addEventListener("submit", (event) => {
+      if (eventDate.value < eventDate.min || eventDate.value > eventDate.max) {
+        event.preventDefault();
+        eventDate.setCustomValidity(`Choose a date between ${eventDate.min} and ${eventDate.max}.`);
+        eventDate.reportValidity();
+      } else {
+        eventDate.setCustomValidity("");
+      }
+    });
+
+    eventDate.addEventListener("input", () => eventDate.setCustomValidity(""));
+
+    themeToggle.addEventListener("click", () => {
+      const darkMode = document.body.classList.toggle("dark-mode");
+      themeToggle.textContent = darkMode ? "Light mode" : "Dark mode";
+      themeToggle.setAttribute("aria-pressed", String(darkMode));
+    });
+
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+
+    hamburger.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("is-open");
+      hamburger.setAttribute("aria-expanded", String(isOpen));
+      hamburger.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+    });
+  </script>
+</body>
+
+</html>
