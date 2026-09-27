@@ -1,1 +1,534 @@
+* { box-sizing: border-box; }
 
+body {
+  display: grid;
+  grid-template-areas: "header" "nav" "main" "footer";
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+}
+
+body { font-size: 1rem; line-height: 1.5; }
+p { max-width: 65ch; }
+h1 { font-size: clamp(1.75rem, 4vw, 3rem); }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+small { font-size: 0.875rem; }
+
+
+.site-header {
+  grid-area: header;
+  padding: 1.5rem 5%;
+  text-align: center;
+  background-color: var(--white);
+  border-bottom: 0.1875rem solid var(--brand);
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: calc(100% - 2rem);
+  max-width: 60rem;
+  margin: 0 auto 1.25rem;
+}
+
+.skip {
+  display: inline-block;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--white);
+  color: var(--brand);
+  border: 0.125rem solid var(--brand);
+  border-radius: 0.25rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.skip:hover { background-color: var(--brand); color: var(--white); text-decoration: none; }
+.skip:focus,
+.theme-toggle:focus,
+.hamburger:focus { outline: 0.1875rem solid var(--accent); outline-offset: 0.1875rem; }
+
+.theme-toggle {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  border: 0.125rem solid var(--brand);
+  border-radius: 0.25rem;
+  background-color: var(--brand);
+  color: var(--white);
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.theme-toggle:hover { background-color: var(--accent); border-color: var(--accent); }
+
+.site-header img {
+  display: block;
+  width: 10rem;
+  height: 10rem;
+  max-width: 100%;
+  object-fit: contain;
+  margin: 0 auto 1rem;
+}
+
+.site-header h1 { color: var(--brand); margin-bottom: 0.5rem; }
+.site-header p { margin: 0 auto; color: var(--text); }
+
+
+body > nav {
+  grid-area: nav;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 5%;
+  background-color: var(--brand);
+}
+
+.nav-links {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.hamburger {
+  display: inline-block;
+  margin-left: auto;
+  padding: 0.5rem 0.75rem;
+  border: 0.125rem solid var(--white);
+  border-radius: 0.25rem;
+  background-color: transparent;
+  color: var(--white);
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Mobile navigation dropdown: the Menu button reveals the link list. */
+@media (max-width: 39.99rem) {
+  body > nav {
+    flex-wrap: wrap;
+  }
+
+  .nav-links.is-open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    order: 2;
+    padding-top: 0.5rem;
+  }
+
+  .nav-links.is-open a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* descendant and child selectors, kept separate for comparison. */
+nav a {
+  color: var(--white);
+  text-decoration: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.25rem;
+}
+nav > .nav-links > a { padding: 0.45rem 0.75rem; }
+nav a:not(.active) { border: 1px solid transparent; }
+
+/* LVHA order. */
+nav a:link { color: var(--white); }
+nav a:visited { color: var(--white); }
+nav a:hover { background-color: var(--accent); color: var(--white); text-decoration: none; }
+nav a:active { background-color: var(--white); color: var(--brand); }
+nav a:focus { outline: 0.1875rem solid var(--white); outline-offset: 0.125rem; }
+
+
+a[href^="https"]::after { content: " ↗"; font-size: 0.85em; }
+
+main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "events" "event-list" "upcoming" "submit-event" "event-table" "rules" "faq" "information";
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem 3%;
+}
+
+section {
+  min-width: 0;
+  margin: 0 0 0.25rem 0;
+  padding: 1.25rem;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 0.625rem;
+}
+
+.events { grid-area: events; }
+.event-list { grid-area: event-list; }
+.upcoming { grid-area: upcoming; }
+.submit-event { grid-area: submit-event; }
+.event-table { grid-area: event-table; }
+.rules { grid-area: rules; }
+.faq { grid-area: faq; }
+.information { grid-area: information; }
+
+.events {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.25rem;
+  background-color: var(--white);
+  border: 0.125rem solid var(--brand);
+}
+.events > h2 { grid-column: 1 / -1; color: var(--brand); text-align: center; }
+
+/* specificity example: low-specificity element selector. */
+article {
+  margin: 0.25rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: var(--white);
+  box-shadow: 0 0.125rem 0.5rem rgb(0 0 0 / 8%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+/* sibling hover mechanism — h2 + p targets the first paragraph. */
+h2 + p { border-left: 0.1875rem solid var(--accent); padding-left: 0.75rem; }
+/* Lab 4 A3: h2 ~ p targets every following paragraph in the same parent. */
+h2 ~ p { line-height: 1.6; }
+
+.events article:hover {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 14%);
+  background-color: var(--card-hover);
+}
+.events article:focus-within { outline: 0.125rem solid var(--accent); outline-offset: 0.125rem; }
+.events article img {
+  display: block;
+  width: 100%;
+  max-width: 12.5rem;
+  height: 10rem;
+  object-fit: cover;
+  margin: 0 auto 1rem;
+  border-radius: 0.375rem;
+}
+.events article h3 { color: var(--accent); margin-bottom: 0.5rem; }
+
+/* inheritance tools. */
+.events article p { color: inherit; }
+.events article h3 { line-height: initial; }
+.events article { text-align: unset; }
+
+
+.event-list { padding: 1.25rem 1.5rem; }
+.event-list ul { padding-left: 1.5rem; }
+.event-list li { margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+.event-list li:last-child { border-bottom: none; }
+.event-list time { font-weight: bold; color: var(--brand); }
+
+.upcoming h2 { text-align: center; text-transform: uppercase; letter-spacing: 0.0625rem; margin-bottom: 1.25rem; }
+.upcoming figure {
+  position: relative;
+  width: 100%;
+  max-width: 44rem;
+  margin: 0 auto 1.25rem;
+  padding: 1rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+
+
+.upcoming figure::before {
+  content: "";
+  display: block;
+  width: 2.8rem;
+  height: 0.25rem;
+  margin: 0 auto 0.75rem;
+  background-color: var(--accent);
+  border-radius: 0.125rem;
+}
+
+.upcoming figure img {
+  display: block;
+  width: 100%;
+  max-width: 31.25rem;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  margin: 0 auto;
+  border-radius: 0.375rem;
+}
+.upcoming figcaption { margin-top: 0.75rem; text-align: center; color: var(--muted); }
+.upcoming h3 { color: var(--accent); margin-bottom: 0.75rem; }
+.upcoming p { margin-bottom: 0.5rem; }
+.upcoming > a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.6rem 1rem;
+  background-color: var(--brand);
+  color: var(--white);
+  border-radius: 0.3125rem;
+  text-decoration: none;
+}
+.upcoming > a:link { color: var(--white); }
+.upcoming > a:visited { color: var(--white); }
+.upcoming > a:hover { background-color: var(--accent); color: var(--white); }
+.upcoming > a:active { background-color: var(--white); color: var(--brand); }
+.upcoming > a:focus { outline: 0.1875rem solid var(--accent); outline-offset: 0.1875rem; }
+
+.submit-event form {
+  width: 100%;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 1.25rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+.submit-event form p { margin-bottom: 1rem; }
+.submit-event label { display: block; margin-bottom: 0.35rem; font-weight: bold; }
+input,
+textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.65rem;
+  font: 1rem Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 0.3125rem;
+}
+/* attribute selectors. */
+input[type="email"] { border-left: 0.25rem solid var(--brand); }
+input[type="date"] { border-left: 0.25rem solid var(--accent); }
+/* keyboard-visible form state. */
+input:focus,
+textarea:focus { outline: 0.1875rem solid var(--accent); outline-offset: 0.125rem; }
+/* generated placeholder styling. */
+input::placeholder,
+textarea::placeholder { color: var(--muted); opacity: 1; }
+
+button {
+  padding: 0.65rem 1.25rem;
+  font: bold 1rem Arial, Helvetica, sans-serif;
+  color: var(--white);
+  background-color: var(--brand);
+  border: 0.125rem solid var(--brand);
+  border-radius: 0.3125rem;
+  cursor: pointer;
+}
+button:hover { background-color: var(--accent); border-color: var(--accent); }
+button:focus { outline: 0.1875rem solid var(--accent); outline-offset: 0.1875rem; }
+
+.event-table { overflow-x: auto; }
+.event-table table { width: 100%; border-collapse: collapse; background-color: var(--white); }
+.event-table th,
+.event-table td { padding: 0.75rem; border: 1px solid var(--border); text-align: center; }
+.event-table th { background-color: var(--brand); color: var(--white); font-weight: bold; }
+
+.event-table tbody tr:nth-child(even) { background-color: var(--surface); }
+
+.rules ol { padding-left: 1.5rem; }
+.rules li { margin-bottom: 0.5rem; }
+.faq details { margin-bottom: 1rem; padding: 1rem; background-color: var(--surface); border: 1px solid var(--border); border-radius: 0.375rem; }
+.faq summary { cursor: pointer; font-weight: bold; color: var(--brand); }
+.faq summary:hover { text-decoration: underline; }
+.information mark { padding: 0.15rem 0.3rem; letter-spacing: 0.03125rem; }
+.information code { color: var(--accent); font-family: "Courier New", monospace; }
+
+
+footer {
+  grid-area: footer;
+  padding: 2rem 5%;
+  background-color: var(--brand);
+  color: var(--white);
+  text-align: center;
+}
+
+footer nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+footer nav a,
+footer address a {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  color: var(--white);
+  text-decoration: none;
+}
+
+/* LVHA order */
+footer nav a:link,
+footer address a:link {
+  color: var(--white);
+}
+
+footer nav a:visited,
+footer address a:visited {
+  color: var(--white);
+}
+
+footer nav a:hover,
+footer address a:hover {
+  color: var(--brand);
+  background-color: var(--white);
+  text-decoration: underline;
+}
+
+footer nav a:active,
+footer address a:active {
+  color: var(--brand);
+  background-color: var(--white);
+}
+
+footer nav a:focus,
+footer address a:focus {
+  color: var(--brand);
+  background-color: var(--white);
+  outline: 0.1875rem solid var(--accent);
+  outline-offset: 0.1875rem;
+}
+
+footer address {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0 auto 1.25rem;
+  font-style: normal;
+  line-height: 1.6;
+  text-align: center;
+}
+
+footer p {
+  margin: 0 auto;
+  max-width: 65ch;
+  text-align: center;
+}
+
+@media (min-width: 40rem) {
+  .nav-links { display: flex; }
+  .hamburger { display: none; }
+  .events { grid-template-columns: repeat(2, minmax(15rem, 1fr)); }
+}
+
+@media (min-width: 64rem) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "events"
+      "upcoming"
+      "event-list"
+      "submit-event"
+      "event-table"
+      "rules"
+      "faq"
+      "information";
+    align-items: start;
+  }
+  .events { grid-template-columns: repeat(3, minmax(15rem, 1fr)); }
+}
+
+/* Narrow screens keep controls and cards from overlapping. */
+@media (max-width: 39.99rem) {
+  .header-tools { align-items: stretch; }
+  .theme-toggle { white-space: nowrap; }
+}
+
+
+
+/* Registration success page */
+.success-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--surface);
+}
+
+.success-card {
+    width: min(90%, 35rem);
+    padding: 3rem 2rem;
+    text-align: center;
+    background-color: var(--paper);
+    border: 1px solid var(--brand);
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 10%);
+}
+
+.success-icon {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--brand);
+    color: var(--white);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.success-card h1 {
+    margin-bottom: 1rem;
+    color: var(--brand);
+}
+
+.success-card p {
+    margin: 0 auto 2rem;
+    max-width: 65ch;
+    color: var(--text);
+}
+
+.success-home {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    background-color: var(--brand);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* LVHA order */
+.success-home:link {
+    color: var(--white);
+}
+
+.success-home:visited {
+    color: var(--white);
+}
+
+.success-home:hover {
+    background-color: var(--accent);
+    color: var(--white);
+}
+
+.success-home:active {
+    background-color: var(--brand);
+    color: var(--white);
+}
+
+.success-home:focus {
+    outline: 0.1875rem solid var(--accent);
+    outline-offset: 0.1875rem;
+}
