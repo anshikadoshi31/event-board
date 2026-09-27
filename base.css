@@ -1,0 +1,29 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --brand: #1f4e79;
+  --accent: #e8541e;
+  --surface: #f5f7fa;
+  --text: #222222;
+  --white: #ffffff;
+  --border: #d5d5d5;
+  --muted: #555555;
+  --card-hover: rgb(31 78 121 / 6%);
+  --success: hsl(145 55% 35%);
+}
+
+body { font-family: Arial, Helvetica, sans-serif; color: var(--text); background-color: var(--surface); }
+
+h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; }
+
+h1 { color: var(--brand); }
+h2 { color: var(--brand); margin-bottom: 1rem; }
+h3 { color: var(--accent); margin-bottom: 0.5rem; }
+p { line-height: 1.5; margin-bottom: 0.75rem; }
+
+nav a { text-decoration: none; }
+
+a:link { color: var(--brand); }
+a:visited { color: var(--muted); }
+a:hover { text-decoration: underline; }
+a:active { color: var(--accent); }
