@@ -1,0 +1,11 @@
+body.dark-mode {
+  --brand: #6fa8dc;
+  --accent: #ff9b73;
+  --surface: #181818;
+  --text: #eeeeee;
+  --white: #242424;
+  --border: #555555;
+  --muted: #cccccc;
+  --card-hover: rgb(255 255 255 / 7%);
+  --success: hsl(145 55% 55%);
+}
