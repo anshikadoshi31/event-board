@@ -1,11 +1,153 @@
-body.dark-mode {
-  --brand: #6fa8dc;
-  --accent: #ff9b73;
-  --surface: #181818;
-  --text: #eeeeee;
-  --white: #242424;
-  --border: #555555;
-  --muted: #cccccc;
-  --card-hover: rgb(255 255 255 / 7%);
-  --success: hsl(145 55% 55%);
+
+body:has(#theme-toggle-checkbox:checked) {
+    background-color: #121212;
+    color: #f1f1f1;
+}
+
+/* Header */
+body:has(#theme-toggle-checkbox:checked) .site-header {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+}
+
+/* Main sections*/
+body:has(#theme-toggle-checkbox:checked) main > section {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+}
+
+/* Individual event cards */
+body:has(#theme-toggle-checkbox:checked) .events article {
+    background-color: #292929;
+    color: #f1f1f1;
+    border-color: #444;
+}
+
+/* All section headings */
+body:has(#theme-toggle-checkbox:checked) main h2,
+body:has(#theme-toggle-checkbox:checked) main h3 {
+    color: #8ab4f8;
+}
+
+/* Paragraphs, list items and descriptions */
+body:has(#theme-toggle-checkbox:checked) main p,
+body:has(#theme-toggle-checkbox:checked) main li,
+body:has(#theme-toggle-checkbox:checked) main figcaption,
+body:has(#theme-toggle-checkbox:checked) main address {
+    color: #e0e0e0;
+}
+
+/* List of Events: preserve existing layout */
+body:has(#theme-toggle-checkbox:checked) .event-list {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+}
+
+body:has(#theme-toggle-checkbox:checked) .event-list li {
+    color: #e0e0e0;
+    border-color: #444;
+}
+
+body:has(#theme-toggle-checkbox:checked) .event-list time {
+    color: #8ab4f8;
+}
+
+/* Upcoming event image caption */
+body:has(#theme-toggle-checkbox:checked) .upcoming figcaption {
+    color: #e0e0e0;
+}
+
+/* Form */
+body:has(#theme-toggle-checkbox:checked) .submit-event form {
+    background-color: #292929;
+    color: #f1f1f1;
+    border-color: #444;
+}
+
+body:has(#theme-toggle-checkbox:checked) .submit-event label {
+    color: #f1f1f1;
+}
+
+body:has(#theme-toggle-checkbox:checked) input:not([type="checkbox"]),
+body:has(#theme-toggle-checkbox:checked) textarea,
+body:has(#theme-toggle-checkbox:checked) select {
+    background-color: #333;
+    color: #f1f1f1;
+    border-color: #666;
+}
+
+body:has(#theme-toggle-checkbox:checked) input::placeholder,
+body:has(#theme-toggle-checkbox:checked) textarea::placeholder {
+    color: #bdbdbd;
+}
+
+/* Buttons */
+body:has(#theme-toggle-checkbox:checked) button {
+    background-color: #245b91;
+    color: #fff;
+    border-color: #568ac0;
+}
+
+/* Event schedule table */
+body:has(#theme-toggle-checkbox:checked) .event-table table {
+    color: #f1f1f1;
+    border-color: #555;
+}
+
+body:has(#theme-toggle-checkbox:checked) .event-table th,
+body:has(#theme-toggle-checkbox:checked) .event-table td {
+    background-color: #292929;
+    color: #f1f1f1;
+    border-color: #555;
+}
+
+/* FAQ */
+body:has(#theme-toggle-checkbox:checked) .faq details {
+    color: #f1f1f1;
+}
+
+body:has(#theme-toggle-checkbox:checked) .faq summary {
+    color: #8ab4f8;
+}
+
+/* Links */
+body:has(#theme-toggle-checkbox:checked) main a,
+body:has(#theme-toggle-checkbox:checked) footer a {
+    color: #8ab4f8;
+}
+
+/* Navigation */
+body:has(#theme-toggle-checkbox:checked) nav {
+    background-color: #222;
+    color: #f1f1f1;
+}
+
+body:has(#theme-toggle-checkbox:checked) nav a {
+    color: #f1f1f1;
+}
+
+/* Footer */
+body:has(#theme-toggle-checkbox:checked) footer {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+}
+
+
+body:has(#theme-toggle-checkbox:checked) mark {
+    background-color: #66551b;
+    color: #fff;
+}
+
+body:has(#theme-toggle-checkbox:checked) code,
+body:has(#theme-toggle-checkbox:checked) kbd,
+body:has(#theme-toggle-checkbox:checked) samp {
+    background-color: #333;
+    color: #f1f1f1;
+    border-color: #555;
+}
+
+/* Keyboard accessibility */
+.theme-toggle-checkbox:focus-visible + .theme-toggle {
+    outline: 3px solid #8ab4f8;
+    outline-offset: 3px;
 }
