@@ -1,5 +1,7 @@
 # IIIT Vadodara Campus Event Board — Lab Assignment 6
 
+Campus event discovery, RSVP demos, and student activity updates for IIIT Vadodara.
+
 ## Project overview
 A responsive campus event board created for IIIT Vadodara as part of Lab Assignment 6. The website displays upcoming campus events, allows users to search and filter events, and provides a demo RSVP flow. Event cards are generated dynamically from `events.json` using JavaScript and the Fetch API.
 
