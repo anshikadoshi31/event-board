@@ -49,159 +49,56 @@
   </header>
 
 
-  <nav>
-    <input type="checkbox" id="menu-toggle" class="menu-checkbox">
-
-<label for="menu-toggle" class="hamburger">
-    Menu
-</label>
-
-<div class="nav-links">
-    <a href="#events">Our Events</a>
-    <a href="#event-list">List of Events</a>
-    <a href="#upcoming">Upcoming Event</a>
-    <a href="#submit-event">Submit an Event</a>
-    <a href="#event-table">Event Schedule</a>
-    <a href="#rules">Rules</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact Us</a>
-</div>
-  </nav>
+  <nav aria-label="Main navigation">
+      <button
+        type="button"
+        class="hamburger"
+        id="menu-button"
+        aria-expanded="false"
+        aria-controls="primary-links"
+      >
+        Menu
+      </button>
+      <div class="nav-links" id="primary-links">
+        <a href="#events">Our Events</a>
+        <a href="#event-list">List of Events</a>
+        <a href="#upcoming">Upcoming Event</a>
+        <a href="#submit-event">Submit an Event</a>
+        <a href="#rsvp">RSVP</a>
+        <a href="#event-table">Event Schedule</a>
+        <a href="#rules">Rules</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact Us</a>
+      </div>
+    </nav>
 
   <main id="main">
 
     <section id="events" class="events">
       <h2>Our Events</h2>
-
-      <!-- B23: class selector deliberately conflicts with article selector -->
-      <article>
-        <img
-          src="./cultural.jpg"
-          alt="Students participating in a cultural event"
-          width="200"
-          height="160"
-          loading="lazy"
-          decoding="async"
-        >
-        <h3>Cultural Event</h3>
-        <p>
-          A campus celebration featuring cultural performances and activities.
-        </p>
-      </article>
-
-      <article>
-        <img
-          src="./dance.jpeg"
-          alt="Students performing in a dance competition"
-          width="200"
-          height="160"
-          loading="lazy"
-          decoding="async"
-        >
-        <h3>Dance Competition</h3>
-        <p>
-          A student dance competition showcasing individual and group performances.
-        </p>
-      </article>
-
-      <article>
-        <img
-          src="./quiz.jpeg"
-          alt="Students taking part in a quiz competition"
-          width="200"
-          height="160"
-          loading="lazy"
-          decoding="async"
-        >
-        <h3>Quiz Competition</h3>
-        <p>
-          An academic quiz that challenges students' knowledge and quick thinking.
-        </p>
-      </article>
-
-      <article>
-        <img
-          src="./photography.jpeg"
-          alt="Photography competition entry displayed for students"
-          width="200"
-          height="160"
-          loading="lazy"
-          decoding="async"
-        >
-        <h3>Photography</h3>
-        <p>
-          A creative competition for students interested in photography.
-        </p>
-      </article>
-
-      <article>
-        <img
-          src="./sports.jpeg"
-          alt="Students participating in a sports meet"
-          width="200"
-          height="160"
-          loading="lazy"
-          decoding="async"
-        >
-        <h3>Sports Meet</h3>
-        <p>
-          A campus sports event with activities for student participants.
-        </p>
-      </article>
-
-      <article>
-        <img
-          src="./hack.png"
-          alt="Technology event banner for the CodeSprint Hackathon"
-          width="200"
-          height="160"
-          loading="lazy"
-          decoding="async"
-        >
-        <h3>CodeSprint Hackathon</h3>
-        <p>
-          A technical hackathon where students build useful solutions and present their ideas.
-        </p>
-      </article>
+      <p class="section-intro">
+  Explore events and reserve a seat. Event cards are loaded from events.json.
+</p>
+<label class="search-label" for="event-search">Search events</label>
+<input
+  type="search"
+  id="event-search"
+  class="event-search"
+  placeholder="Search by event title or category..."
+  autocomplete="off"
+/>
+<p id="event-status" class="event-status" role="status" aria-live="polite">
+  Loading...
+</p>
+<div id="events-container" class="events-container" aria-live="polite"></div>
+      
     </section>
 
     <!-- event list section -->
     <section id="event-list" class="event-list">
       <h2>List of Events</h2>
-
-      <ul>
-        <li>
-          Cultural Event -
-          <time datetime="2026-08-20">20 August 2026</time>
-        </li>
-
-        <li>
-          Dance Competition -
-          <time datetime="2026-08-20">20 August 2026</time>
-        </li>
-
-        <li>
-          Quiz Competition -
-          <time datetime="2026-08-21">21 August 2026</time>
-        </li>
-
-        <li>
-          Photography Competition -
-          <time datetime="2026-08-21">21 August 2026</time>
-        </li>
-
-        <li>
-          Sports Meet -
-          <time datetime="2026-08-21">21 August 2026</time>
-          to
-          <time datetime="2026-08-23">23 August 2026</time>
-        </li>
-
-        <li>
-          CodeSprint Hackathon -
-          <time datetime="2026-10-18">18 October 2026</time>
-        </li>
-      </ul>
+  <p>All event dates and availability are displayed in the event cards above.</p>
+<a href="#events">Browse available events</a>
     </section>
 
     <!-- upcoming event section -->
@@ -231,7 +128,7 @@
 
       <p>
         <strong>Date:</strong>
-        <time datetime="2026-09-05">5 September 2026</time>
+        <time datetime="2026-11-29">28 November 2026</time>
       </p>
 
       <p>
@@ -242,14 +139,14 @@
         <strong>Venue:</strong> IIIT Vadodara College Ground
       </p>
 
-      <a href="#submit-event">Register for Event</a>
+      <a href="#rsvp">Register for Event</a>
     </section>
 
     <!-- event submission section -->
     <section id="submit-event" class="submit-event">
       <h2>Submit an Event</h2>
 
-      <form action="sucess.html" method="get">
+      <form id="event-submit-form" action="sucess.html" method="get">
 
         <p>
           <label for="event-name">Event Name:</label>
@@ -258,6 +155,7 @@
             id="event-name"
             name="event-name"
             placeholder="Enter event name"
+            minlength="5"
             required
           >
         </p>
@@ -280,8 +178,8 @@
             type="date"
             id="event-date"
             name="event-date"
-            min="2026-10-12"
-            max="2027-04-12"
+            min="2026-11-17"
+            max="2027-04-17"
             required
           >
         </p>
@@ -292,6 +190,7 @@
             type="text"
             id="event-location"
             name="event-location"
+            minlength="5"
             placeholder="Enter event location"
             required
           >
@@ -309,10 +208,36 @@
           ></textarea>
         </p>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Submit Event</button>
 
       </form>
     </section>
+
+    <section id="rsvp" class="rsvp-section">
+  <h2>RSVP / Sign-up</h2>
+  <p>Use this sample form to practise browser and custom JavaScript validation.</p>
+  <form id="rsvp-form" novalidate>
+    <p>
+      <label for="rsvp-name">Full name:</label>
+      <input type="text" id="rsvp-name" name="name" placeholder="Enter at least 2 characters" required pattern="[A-Za-z][A-Za-z .'-]{0,48}" />
+    </p>
+    <p>
+      <label for="rsvp-email">Email:</label>
+      <input type="email" id="rsvp-email" name="email" placeholder="you@example.com" required />
+    </p>
+    <p>
+      <label for="rsvp-event">Choose an event:</label>
+      <select id="rsvp-event" name="event" required>
+        <option value="">Select an event</option>
+      </select>
+    </p>
+    <p class="form-help">
+      A successful demo RSVP is confirmed on this page. No data is sent to a server.
+    </p>
+    <button type="submit">Confirm RSVP</button>
+    <p id="rsvp-message" class="form-message" role="status" aria-live="polite"></p>
+  </form>
+</section>
 
     <!-- event schedule section -->
     <section id="event-table" class="event-table">
@@ -323,7 +248,7 @@
           <tr>
             <th scope="col">Event Category</th>
             <th scope="col">Event</th>
-            <th scope="col">Day</th>
+            <th scope="col">Day/Date</th>
           </tr>
         </thead>
 
@@ -331,37 +256,37 @@
           <tr>
             <td>Cultural</td>
             <td>Cultural Event</td>
-            <td>Thursday</td>
+            <td>15 November 2026</td>
           </tr>
 
           <tr>
             <td>Competition</td>
             <td>Dance Competition</td>
-            <td>Thursday</td>
+            <td>19 November 2026</td>
           </tr>
 
           <tr>
             <td>Academic</td>
             <td>Quiz Competition</td>
-            <td>Friday</td>
+            <td>22 November 2026</td>
           </tr>
 
           <tr>
             <td>Creative</td>
             <td>Photography Competition</td>
-            <td>Friday</td>
+            <td>26 November 2027</td>
           </tr>
 
           <tr>
             <td>Sports</td>
             <td>Sports Meet</td>
-            <td>Saturday</td>
+            <td>28 November 2027</td>
           </tr>
 
           <tr>
             <td>Technical</td>
             <td>CodeSprint Hackathon</td>
-            <td>Saturday</td>
+            <td>30 November 2026</td>
           </tr>
         </tbody>
       </table>
@@ -412,9 +337,8 @@
       </p>
 
       <p>
-        For technical information, the page uses the HTML element
-        <code>&lt;article&gt;</code> for individual event cards.
-      </p>
+          Each event card is created dynamically using JavaScript DOM methods.
+        </p>
 
       <p>
         <mark>Event information should be checked before attending.</mark>
@@ -426,7 +350,7 @@
   <!-- footer -->
   <footer id="contact">
 
-    <nav>
+    <nav aria-label="Footer navigation">
       <a href="#main">Home</a>
       <a href="#events">Events</a>
       <a href="#faq">FAQ</a>
@@ -457,6 +381,7 @@
     </p>
 
   </footer>
+  <script src="script.js" defer></script>
 </body>
 
 </html>
