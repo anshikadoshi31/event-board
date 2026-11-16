@@ -562,9 +562,11 @@ footer p {
 }
 .event-status { font-weight: 700; margin: 0.85rem 0; }
 .events-container {
-  grid-column: 1 / -1; display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
-  gap: 1.1rem; align-items: stretch;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 1.1rem;
+  align-items: stretch;
 }
 .events-container .event-card {
   margin: 0; min-width: 0; padding: 1rem; display: flex; flex-direction: column;
@@ -572,7 +574,12 @@ footer p {
   background: var(--white); color: var(--text);
 }
 .events-container .event-card img {
-  width: 100%; height: 10rem; max-width: none; object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 10rem;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
   border-radius: 0.35rem;
 }
 .events-container .event-card h3 { color: var(--brand); }
