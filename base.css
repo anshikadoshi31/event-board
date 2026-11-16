@@ -27,3 +27,34 @@ a:link { color: var(--brand); }
 a:visited { color: var(--muted); }
 a:hover { text-decoration: underline; }
 a:active { color: var(--accent); }
+
+
+.menu-checkbox {
+    position: absolute;
+    opacity: 0;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 40rem) {
+    .hamburger {
+        display: inline-block;
+    }
+
+    nav .nav-links {
+        display: none;
+        flex-direction: column;
+    }
+
+    nav:has(#menu-toggle:checked) .nav-links {
+        display: flex;
+    }
+
+    .menu-checkbox:focus-visible + .hamburger {
+        outline: 3px solid #2563eb;
+        outline-offset: 3px;
+    }
+}

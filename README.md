@@ -30,6 +30,7 @@ event-board/
 ├── index.html
 ├── style.css
 ├── base.css
+├── server.js
 ├── theme-dark.css
 ├── script.js
 ├── events.json

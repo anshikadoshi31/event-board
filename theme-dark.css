@@ -1,4 +1,9 @@
 
+/* =========================================
+   DARK THEME
+   Activated by the theme checkbox in index.html
+   ========================================= */
+
 body:has(#theme-toggle-checkbox:checked) {
     background-color: #121212;
     color: #f1f1f1;
@@ -10,7 +15,8 @@ body:has(#theme-toggle-checkbox:checked) .site-header {
     color: #f1f1f1;
 }
 
-/* Main sections*/
+/* Main sections: events, list, upcoming event, form,
+   schedule, rules, FAQ and information */
 body:has(#theme-toggle-checkbox:checked) main > section {
     background-color: #1e1e1e;
     color: #f1f1f1;
@@ -132,7 +138,7 @@ body:has(#theme-toggle-checkbox:checked) footer {
     color: #f1f1f1;
 }
 
-
+/* Highlighted and code text */
 body:has(#theme-toggle-checkbox:checked) mark {
     background-color: #66551b;
     color: #fff;
@@ -150,4 +156,51 @@ body:has(#theme-toggle-checkbox:checked) samp {
 .theme-toggle-checkbox:focus-visible + .theme-toggle {
     outline: 3px solid #8ab4f8;
     outline-offset: 3px;
+}
+
+
+/* Targeted contrast fixes for new event controls and success feedback. */
+body:has(#theme-toggle-checkbox:checked) .events-container .event-card {
+  background: #292929;
+  color: #f1f1f1;
+  border-color: #555;
+}
+body:has(#theme-toggle-checkbox:checked) .event-category,
+body:has(#theme-toggle-checkbox:checked) .event-card .availability-label {
+  color: #9fc5ff;
+}
+body:has(#theme-toggle-checkbox:checked) .event-card .availability-label.is-full {
+  color: #ff9b91;
+}
+body:has(#theme-toggle-checkbox:checked) .form-message { color: #e7e7e7; }
+body:has(#theme-toggle-checkbox:checked) .form-message.error-message { color: #ff9b91; }
+body:has(#theme-toggle-checkbox:checked) .form-message.success-message { color: #91e2ad; }
+body:has(#theme-toggle-checkbox:checked) .secondary-button {
+  background: #48566b;
+  border-color: #71829a;
+  color: #fff;
+}
+body:has(#theme-toggle-checkbox:checked) .danger-button {
+  background: #8e2929;
+  border-color: #c35b5b;
+  color: #fff;
+}
+body:has(#theme-toggle-checkbox:checked) .success-card {
+  background: #292929;
+  border-color: #568ac0;
+}
+body:has(#theme-toggle-checkbox:checked) .success-card p { color: #e0e0e0; }
+
+
+/* Final contrast adjustments for the free/paid label and major event card. */
+body:has(#theme-toggle-checkbox:checked) .event-free-status {
+  color: #9fc5ff;
+}
+body:has(#theme-toggle-checkbox:checked) .major-event-container .event-card {
+  background: #292929;
+  color: #f1f1f1;
+  border-color: #555;
+}
+body:has(#theme-toggle-checkbox:checked) .search-controls .search-label {
+  color: #f1f1f1;
 }

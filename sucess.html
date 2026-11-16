@@ -1,28 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Successful | IIIT Vadodara</title>
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Event Board submission confirmation." />
+  <title>Submission Successful | IIIT Vadodara</title>
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="theme-dark.css" />
 </head>
-
 <body>
-    <main class="success-page">
-        <section class="success-card">
-            <div class="success-icon" aria-hidden="true">✓</div>
-
-            <h1>Registration Successful!</h1>
-
-            <p>
-                You have successfully registered for the event.
-            </p>
-
-            <a class="success-home" href="index.html">
-                Go to Home Page
-            </a>
-        </section>
-    </main>
+  <main class="success-page">
+    <section class="success-card" aria-labelledby="success-title">
+      <div class="success-icon" aria-hidden="true">✓</div>
+      <h1 id="success-title">Successful!</h1>
+      <p id="success-message" role="status" aria-live="polite">Your event board request has been saved.</p>
+      <p id="success-title-detail" class="success-title-detail"></p>
+      <a class="success-home" href="index.html">Return to Event Board</a>
+    </section>
+  </main>
+  <script>
+    "use strict";
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get("type");
+    const message = params.get("message");
+    const title = params.get("title");
+    const heading = document.querySelector("#success-title");
+    const detail = document.querySelector("#success-title-detail");
+    if (type === "event") heading.textContent = "Event Submitted Successfully!";
+    else if (type === "rsvp") heading.textContent = "Registration Successful!";
+    document.querySelector("#success-message").textContent =
+      message || "Your request has been saved successfully.";
+    detail.textContent = title ? `Event: ${title}` : "";
+  </script>
 </body>
 </html>

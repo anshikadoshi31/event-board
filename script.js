@@ -1,253 +1,288 @@
-// LAB ASSIGNMENT 6 — JavaScript for the IIIT Vadodara Event Board
+// Event Board frontend — events and registrations are stored in events.json.
+"use strict";
 
-// A2: const stores values that are not reassigned; let is used for changing state.
-const pageTitle = "IIIT Vadodara Campus Event Board"; // string
-const defaultSeats = 20; // number
-const isOnlineBoard = true; // boolean
-let events = []; // let because fetch replaces this value after loading
-let visibleEvents = []; // let because search changes the visible list
+const $ = selector => document.querySelector(selector);
+const eventsContainer = $("#events-container");
+const eventStatus = $("#event-status");
+const searchInput = $("#event-search");
+const menuButton = $("#menu-button");
+const navLinks = $("#primary-links");
+const themeCheckbox = $("#theme-toggle-checkbox");
+const eventForm = $("#event-submit-form");
+const eventSubmitMessage = $("#event-submit-message");
+const rsvpForm = $("#rsvp-form");
+const rsvpName = $("#rsvp-name");
+const rsvpEmail = $("#rsvp-email");
+const rsvpEvent = $("#rsvp-event");
+const rsvpMessage = $("#rsvp-message");
+const eventDateInput = $("#event-date");
+const eventSubmitButton = $("#event-submit-button");
+const majorEventContainer = $("#major-event-container");
 
-// B1: Select elements using querySelector, querySelectorAll and getElementById.
-const eventsContainer = document.querySelector("#events-container");
-const eventStatus = document.querySelector("#event-status");
-const searchInput = document.querySelector("#event-search");
-const menuButton = document.getElementById("menu-button"); // getElementById example
-const navLinks = document.querySelector("#primary-links");
-const themeCheckbox = document.querySelector("#theme-toggle-checkbox");
-const rsvpForm = document.querySelector("#rsvp-form");
-const rsvpName = document.querySelector("#rsvp-name");
-const rsvpEmail = document.querySelector("#rsvp-email");
-const rsvpEvent = document.querySelector("#rsvp-event");
-const rsvpMessage = document.querySelector("#rsvp-message");
-const eventSubmitForm = document.querySelector("#event-submit-form");
-const allSections = document.querySelectorAll("main section"); // querySelectorAll example
+let events = [];
+let visibleEvents = [];
+let loadSequence = 0;
 
-console.log("Page:", pageTitle);
-console.log("Default seats:", defaultSeats, "| Online board:", isOnlineBoard);
-console.log("Sections selected:", allSections.length);
-
-// A4: Control flow labels each event based on its remaining seats.
-function getAvailabilityLabel(ev) {
-  if (ev.seats === 0) {
-    return "Full";
-  } else if (ev.seats < 5) {
-    return "Few left";
-  } else {
-    return "Open";
-  }
+function safeText(value, fallback = "Not provided") {
+  const result = String(value ?? "").trim();
+  return result || fallback;
 }
-
-// A6: Function with a parameter and return value.
-function formatEvent(ev) {
-  return `${ev.title} — ${formatDate(ev.date)} — ${getAvailabilityLabel(ev)}`;
+function formatDate(value) {
+  if (!value) return "Date to be announced";
+  const date = new Date(`${value}T00:00:00`);
+  return Number.isNaN(date.getTime())
+    ? "Date to be announced"
+    : date.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
 }
+function makeElement(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+function setDateLimits() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const min = new Date(today);
+  min.setDate(min.getDate() + 7);
+  const max = new Date(today);
+  max.setMonth(max.getMonth() + 4);
+  const iso = date => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+  eventDateInput.min = iso(min);
+  eventDateInput.max = iso(max);
+}
+function availabilityLabel(event) {
+  const seats = Number(event.seats);
+  if (seats <= 0) return "Fully booked";
+  if (seats < 5) return "Few seats left";
+  return "Seats available";
+}
+function buildEventCard(event, major = false) {
+  const card = makeElement("article", major ? "event-card major-event-card" : "event-card");
+  if (Number(event.seats) <= 0) card.classList.add("full");
 
-function formatDate(dateString) {
-  return new Date(`${dateString}T00:00:00`).toLocaleDateString("en-IN", {
-    day: "numeric", month: "long", year: "numeric"
+  const image = document.createElement("img");
+  image.src = safeText(event.image, "images/favicon.png");
+  image.alt = `${safeText(event.title, "Event")} poster`;
+  image.loading = "lazy";
+  image.decoding = "async";
+  image.addEventListener("error", () => {
+    image.src = "images/favicon.png";
+    image.onerror = null;
   });
+
+  const fields = [
+    makeElement("h3", "", safeText(event.title)),
+    makeElement("p", "event-category", `Category: ${safeText(event.category)}`),
+    makeElement("p", "event-description", safeText(event.description)),
+    makeElement("p", "", `Date: ${formatDate(event.date)}`),
+    makeElement("p", "", `Time: ${safeText(event.time)}`),
+    makeElement("p", "", `Venue: ${safeText(event.venue)} · ${event.online ? "Online" : "In person"}`),
+    makeElement("p", "", `Organizer: ${safeText(event.organizer)}`),
+    makeElement("p", "", `Contact: ${safeText(event.organizerEmail)}`),
+    makeElement("p", "seat-count", `Seats left: ${Number.isFinite(Number(event.seats)) ? Number(event.seats) : 0}`),
+    makeElement("p", "event-free-status", event.free ? "Entry: Free" : "Entry: Paid")
+  ];
+  const availability = makeElement("p", "availability-label", availabilityLabel(event));
+  if (Number(event.seats) <= 0) availability.classList.add("is-full");
+
+  const actions = makeElement("div", "event-card-actions");
+  const rsvpButton = makeElement("button", "card-rsvp", Number(event.seats) <= 0 ? "Fully booked" : "RSVP");
+  rsvpButton.type = "button";
+  rsvpButton.dataset.action = "rsvp";
+  rsvpButton.dataset.eventId = event.id;
+  rsvpButton.disabled = Number(event.seats) <= 0;
+  actions.appendChild(rsvpButton);
+
+  card.append(image, ...fields, availability, actions);
+  return card;
 }
-
-// A7: Arrow function with an array method; returns events with at least one seat.
-const getAvailableEvents = (eventArray) => eventArray.filter(ev => ev.seats > 0);
-
-// B2/B3: Create event cards from the JSON data with DOM methods.
-function renderEvents(eventArray) {
-  eventsContainer.textContent = "";
-
-  if (eventArray.length === 0) {
-    eventStatus.textContent = "No events match your search. Try another keyword.";
+function renderEvents(list) {
+  eventsContainer.replaceChildren();
+  if (!list.length) {
+    eventStatus.textContent = events.length
+      ? "No events match your search. Try another keyword."
+      : "No events are currently available.";
     return;
   }
-
-  eventStatus.textContent = `${eventArray.length} event(s) found.`;
-  for (const ev of eventArray) { // A5: for...of visits every event once
-    const card = document.createElement("article");
-    card.classList.add("event-card");
-    if (ev.seats === 0) card.classList.add("full");
-
-    const image = document.createElement("img");
-    image.src = ev.image;
-    image.alt = `${ev.title} event`;
-    image.loading = "lazy";
-    image.setAttribute("decoding", "async");
-
-    const heading = document.createElement("h3");
-    heading.textContent = ev.title;
-
-    const description = document.createElement("p");
-    description.textContent = ev.description;
-
-    const date = document.createElement("p");
-    date.textContent = `Date: ${formatDate(ev.date)}`;
-
-    const venue = document.createElement("p");
-    venue.textContent = `Venue: ${ev.venue} | ${ev.online ? "Online" : "Offline"}`;
-
-    const seats = document.createElement("p");
-    seats.classList.add("seat-count");
-    seats.textContent = `Seats left: ${ev.seats}`;
-
-    const availability = document.createElement("p");
-    availability.classList.add("availability-label");
-    availability.textContent = getAvailabilityLabel(ev);
-    availability.classList.toggle("is-full", ev.seats === 0);
-    availability.style.fontWeight = "bold";
-    availability.setAttribute("aria-label", `Availability: ${getAvailabilityLabel(ev)}`);
-
-    const summary = document.createElement("p");
-    summary.textContent = formatEvent(ev); // Use A6 function return value.
-
-    const rsvpButton = document.createElement("button");
-    rsvpButton.type = "button";
-    rsvpButton.classList.add("card-rsvp");
-    rsvpButton.textContent = ev.seats === 0 ? "Fully booked" : "RSVP";
-    rsvpButton.dataset.eventId = ev.id; // Data attribute connects button to its event.
-    rsvpButton.disabled = ev.seats === 0;
-
-    card.appendChild(image);
-    card.appendChild(heading);
-    card.appendChild(description);
-    card.appendChild(date);
-    card.appendChild(venue);
-    card.appendChild(seats);
-    card.appendChild(availability);
-    card.appendChild(summary);
-    card.appendChild(rsvpButton);
-    eventsContainer.appendChild(card);
-  }
+  eventStatus.textContent = `${list.length} event${list.length === 1 ? "" : "s"} found.`;
+  const fragment = document.createDocumentFragment();
+  list.forEach(item => fragment.appendChild(buildEventCard(item)));
+  eventsContainer.appendChild(fragment);
 }
-
-// Populate the RSVP select box from the same single source of truth.
-function populateRsvpOptions(eventArray) {
-  rsvpEvent.textContent = "";
-  const firstOption = document.createElement("option");
-  firstOption.value = "";
-  firstOption.textContent = "Select an event";
-  rsvpEvent.appendChild(firstOption);
-
-  for (const ev of eventArray) {
-    if (ev.seats > 0) {
-      const option = document.createElement("option");
-      option.value = ev.id;
-      option.textContent = ev.title;
-      rsvpEvent.appendChild(option);
-    }
+function renderMajorEvent() {
+  majorEventContainer.replaceChildren();
+  const concert = events.find(item => item.id === "iiit-vadodara-live-concert-2026");
+  if (!concert) {
+    majorEventContainer.textContent = "The major event details are currently unavailable.";
+    return;
   }
+  majorEventContainer.appendChild(buildEventCard(concert, true));
 }
-
-// B6: Filter cards while the user types; Escape clears the search field.
+function populateRsvpOptions() {
+  const previous = rsvpEvent.value;
+  rsvpEvent.replaceChildren();
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "Select an event";
+  rsvpEvent.appendChild(placeholder);
+  events.filter(item => Number(item.seats) > 0).forEach(item => {
+    const option = document.createElement("option");
+    option.value = item.id;
+    option.textContent = `${safeText(item.title)} (${item.seats} seats)`;
+    rsvpEvent.appendChild(option);
+  });
+  if ([...rsvpEvent.options].some(option => option.value === previous)) rsvpEvent.value = previous;
+}
 function filterEvents() {
-  const searchTerm = searchInput.value.trim().toLowerCase();
-  visibleEvents = events.filter(ev =>
-    ev.title.toLowerCase().includes(searchTerm) ||
-    ev.category.toLowerCase().includes(searchTerm) ||
-    ev.description.toLowerCase().includes(searchTerm)
-  );
+  const term = searchInput.value.trim().toLowerCase();
+  visibleEvents = events.filter(item => [
+    item.title, item.category, item.description, item.venue, item.organizer
+  ].some(value => String(value ?? "").toLowerCase().includes(term)));
   renderEvents(visibleEvents);
 }
-
+async function readApiResponse(response) {
+  let result;
+  try { result = await response.json(); }
+  catch { throw new Error(`The server returned an unreadable response (HTTP ${response.status}).`); }
+  if (!response.ok || !result.success) {
+    throw new Error(result.message || `Request failed (HTTP ${response.status}).`);
+  }
+  return result;
+}
+async function loadEvents(showLoading = true) {
+  const requestId = ++loadSequence;
+  if (showLoading) eventStatus.textContent = "Loading events from database...";
+  try {
+    const response = await fetch("/api/events", { cache: "no-store" });
+    const result = await readApiResponse(response);
+    if (!Array.isArray(result.data)) throw new Error("The server returned an invalid event list.");
+    if (requestId !== loadSequence) return;
+    events = result.data;
+    filterEvents();
+    populateRsvpOptions();
+    renderMajorEvent();
+  } catch (error) {
+    if (requestId !== loadSequence) return;
+    console.error("Event loading failed:", error);
+    eventStatus.textContent = error.message || "Events could not be loaded. Start the Node.js server and refresh.";
+    eventsContainer.replaceChildren();
+    majorEventContainer.textContent = "The major event details could not be loaded.";
+  }
+}
+function showFormMessage(element, message, isError = false) {
+  element.textContent = message;
+  element.classList.toggle("error-message", isError);
+  element.classList.toggle("success-message", Boolean(message) && !isError);
+}
 searchInput.addEventListener("input", filterEvents);
-searchInput.addEventListener("keydown", (event) => {
+searchInput.addEventListener("keydown", event => {
   if (event.key === "Escape") {
     searchInput.value = "";
     filterEvents();
   }
 });
-
-// B4: Click handler toggles the responsive navigation menu.
 menuButton.addEventListener("click", () => {
   const isOpen = navLinks.classList.toggle("is-open");
   menuButton.setAttribute("aria-expanded", String(isOpen));
 });
-
-// B5: One delegated click listener uses event.target to identify the clicked RSVP button.
-// Event bubbling lets a click on a child button travel up to the events container.
-eventsContainer.addEventListener("click", (event) => {
-  console.log("Clicked element:", event.target);
-  if (event.target.matches(".card-rsvp")) {
-    const selectedId = event.target.dataset.eventId;
-    rsvpEvent.value = selectedId;
-    document.querySelector("#rsvp").scrollIntoView({ behavior: "smooth" });
-    rsvpName.focus();
+navLinks.addEventListener("click", event => {
+  if (event.target.closest("a")) {
+    navLinks.classList.remove("is-open");
+    menuButton.setAttribute("aria-expanded", "false");
   }
 });
-
-// Theme checkbox already exists in Lab 5. Toggle the theme class on the page.
 themeCheckbox.addEventListener("change", () => {
   document.body.classList.toggle("dark-theme", themeCheckbox.checked);
 });
-
-// B8: Custom validation rule: name must contain at least two non-space characters.
-function validateRsvpName() {
-  const cleanedName = rsvpName.value.trim();
-  if (cleanedName.length < 2) {
-    rsvpName.setCustomValidity("Please enter a name with at least 2 characters.");
-  } else {
-    rsvpName.setCustomValidity("");
-  }
-}
-
-rsvpName.addEventListener("input", validateRsvpName);
-rsvpForm.addEventListener("submit", (event) => {
-  event.preventDefault(); // Stop normal submission while this front-end demo validates.
-  validateRsvpName();
-  if (!rsvpForm.checkValidity()) {
-    rsvpForm.reportValidity();
-    rsvpMessage.textContent = "Please correct the highlighted fields and try again.";
-    rsvpMessage.classList.add("error-message");
-    return;
-  }
-
-  const selected = events.find(ev => ev.id === rsvpEvent.value);
-  if (!selected || selected.seats === 0) {
-    rsvpEvent.setCustomValidity("Please select an event with available seats.");
-    rsvpEvent.reportValidity();
-    rsvpEvent.setCustomValidity("");
-    return;
-  }
-
-  selected.seats -= 1;
-  rsvpMessage.textContent = `Thank you, ${rsvpName.value.trim()}! Your demo RSVP for ${selected.title} is confirmed.`;
-  rsvpMessage.classList.remove("error-message");
-  rsvpForm.reset();
-  populateRsvpOptions(events);
-  filterEvents();
-  console.log("Demo RSVP recorded in page memory:", selected.title);
+eventsContainer.addEventListener("click", event => {
+  const button = event.target.closest('button[data-action="rsvp"]');
+  if (!button) return;
+  rsvpEvent.value = button.dataset.eventId;
+  $("#rsvp").scrollIntoView({ behavior: "smooth" });
+  rsvpName.focus({ preventScroll: true });
+});
+majorEventContainer.addEventListener("click", event => {
+  const button = event.target.closest('button[data-action="rsvp"]');
+  if (!button) return;
+  rsvpEvent.value = button.dataset.eventId;
+  $("#rsvp").scrollIntoView({ behavior: "smooth" });
+  rsvpName.focus({ preventScroll: true });
 });
 
-// Existing event-submission form: add a small custom name check without changing its action.
-eventSubmitForm.addEventListener("submit", (event) => {
-  const nameField = document.querySelector("#event-name");
-  nameField.setCustomValidity(nameField.value.trim().length < 2 ? "Event name must contain at least 2 characters." : "");
-  if (!eventSubmitForm.checkValidity()) {
-    event.preventDefault();
-    eventSubmitForm.reportValidity();
-  }
-});
-
-// B7: Fetch JSON asynchronously and handle loading, success and failure states.
-async function loadEvents() {
-  eventStatus.textContent = "Loading...";
+eventForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!eventForm.reportValidity()) return;
+  const payload = {
+    title: $("#event-name").value.trim(),
+    category: $("#event-category").value.trim(),
+    date: eventDateInput.value,
+    time: $("#event-time").value.trim(),
+    venue: $("#event-location").value.trim(),
+    description: $("#event-description").value.trim(),
+    organizer: $("#event-organizer").value.trim(),
+    organizerEmail: $("#event-email").value.trim(),
+    seats: Number($("#event-seats").value),
+    image: $("#event-image").value.trim() || "images/favicon.png",
+    online: $("#event-online").checked,
+    free: $("#event-free").checked
+  };
+  eventSubmitButton.disabled = true;
+  showFormMessage(eventSubmitMessage, "Saving event...");
   try {
-    const response = await fetch("./events.json");
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    events = await response.json();
-    visibleEvents = events;
-    console.log("Events loaded from events.json:", events);
-    console.table(events.map(ev => ({
-      title: ev.title, seats: ev.seats, status: getAvailabilityLabel(ev)
-    })));
-    populateRsvpOptions(events);
-    renderEvents(events);
-    console.log("Available events:", getAvailableEvents(events));
+    const response = await fetch("/api/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const result = await readApiResponse(response);
+    const params = new URLSearchParams({
+      type: "event",
+      message: result.message,
+      title: result.data.title
+    });
+    window.location.href = `/sucess.html?${params.toString()}`;
   } catch (error) {
-    console.error("Could not load events:", error);
-    eventStatus.textContent = "Sorry, events could not be loaded right now. Please refresh the page or try again later.";
-    eventsContainer.textContent = "";
+    showFormMessage(eventSubmitMessage, error.message, true);
+  } finally {
+    eventSubmitButton.disabled = false;
   }
-}
-
+});
+rsvpForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  const cleanedName = rsvpName.value.trim();
+  rsvpName.setCustomValidity(cleanedName.length < 2 ? "Please enter at least 2 characters." : "");
+  if (!rsvpForm.reportValidity()) return;
+  const button = rsvpForm.querySelector('button[type="submit"]');
+  button.disabled = true;
+  showFormMessage(rsvpMessage, "Saving your registration...");
+  try {
+    const response = await fetch("/api/rsvp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: cleanedName,
+        email: rsvpEmail.value.trim(),
+        eventId: rsvpEvent.value
+      })
+    });
+    const result = await readApiResponse(response);
+    const params = new URLSearchParams({
+      type: "rsvp",
+      message: result.message,
+      title: result.data.eventTitle
+    });
+    window.location.href = `/sucess.html?${params.toString()}`;
+  } catch (error) {
+    showFormMessage(rsvpMessage, error.message, true);
+  } finally {
+    button.disabled = false;
+  }
+});
+setDateLimits();
 loadEvents();

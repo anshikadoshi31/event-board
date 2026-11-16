@@ -1,68 +1,110 @@
-[
-  {
-    "id": "cultural-2026",
-    "title": "Cultural Fest",
-    "date": "2026-11-15",
-    "seats": 24,
-    "online": false,
-    "category": "Cultural",
-    "description": "A campus celebration featuring cultural performances, music and student activities.",
-    "image": "images/cultural.jpg",
-    "venue": "Main Auditorium"
-  },
-  {
-    "id": "dance-2026",
-    "title": "Dance Competition",
-    "date": "2026-11-22",
-    "seats": 3,
-    "online": false,
-    "category": "Competition",
-    "description": "A student dance competition showcasing individual and group performances.",
-    "image": "images/dance.jpeg",
-    "venue": "Open Air Theatre"
-  },
-  {
-    "id": "quiz-2026",
-    "title": "Quiz Competition",
-    "date": "2026-12-02",
-    "seats": 0,
-    "online": true,
-    "category": "Academic",
-    "description": "An academic quiz that challenges students' knowledge and quick thinking.",
-    "image": "images/quiz.jpeg",
-    "venue": "Online"
-  },
-  {
-    "id": "photo-2026",
-    "title": "Photography Walk",
-    "date": "2026-12-12",
-    "seats": 18,
-    "online": false,
-    "category": "Creative",
-    "description": "A creative campus photography walk for students interested in visual storytelling.",
-    "image": "images/photography.jpeg",
-    "venue": "Campus"
-  },
-  {
-    "id": "sports-2026",
-    "title": "Annual Sports Meet",
-    "date": "2027-01-10",
-    "seats": 42,
-    "online": false,
-    "category": "Sports",
-    "description": "A campus sports event with activities and friendly competitions for students.",
-    "image": "images/sports.jpeg",
-    "venue": "Sports Ground"
-  },
-  {
-    "id": "hack-2027",
-    "title": "CodeSprint Hackathon",
-    "date": "2027-02-06",
-    "seats": 2,
-    "online": false,
-    "category": "Technical",
-    "description": "A technical hackathon where students build useful solutions and present their ideas.",
-    "image": "images/hack.png",
-    "venue": "Computer Centre"
-  }
-]
+{
+  "events": [
+    {
+      "id": "cultural-2026",
+      "title": "Cultural Fest",
+      "date": "2026-11-30",
+      "seats": 24,
+      "online": false,
+      "category": "Cultural",
+      "description": "A campus celebration featuring cultural performances, music and student activities.",
+      "image": "images/cultural.jpg",
+      "venue": "Main Auditorium",
+      "time": "To be announced",
+      "organizer": "IIIT Vadodara",
+      "organizerEmail": "events@iiitvadodara.ac.in",
+      "free": true
+    },
+    {
+      "id": "dance-2026",
+      "title": "Dance Competition",
+      "date": "2026-12-02",
+      "seats": 3,
+      "online": false,
+      "category": "Competition",
+      "description": "A student dance competition showcasing individual and group performances.",
+      "image": "images/dance.jpeg",
+      "venue": "Open Air Theatre",
+      "time": "To be announced",
+      "organizer": "IIIT Vadodara",
+      "organizerEmail": "events@iiitvadodara.ac.in",
+      "free": true
+    },
+    {
+      "id": "quiz-2026",
+      "title": "Quiz Competition",
+      "date": "2026-12-04",
+      "seats": 0,
+      "online": true,
+      "category": "Academic",
+      "description": "An academic quiz that challenges students' knowledge and quick thinking.",
+      "image": "images/quiz.jpeg",
+      "venue": "Online",
+      "time": "To be announced",
+      "organizer": "IIIT Vadodara",
+      "organizerEmail": "events@iiitvadodara.ac.in",
+      "free": true
+    },
+    {
+      "id": "photo-2026",
+      "title": "Photography Walk",
+      "date": "2026-12-06",
+      "seats": 18,
+      "online": false,
+      "category": "Creative",
+      "description": "A creative campus photography walk for students interested in visual storytelling.",
+      "image": "images/photography.jpeg",
+      "venue": "Campus",
+      "time": "To be announced",
+      "organizer": "IIIT Vadodara",
+      "organizerEmail": "events@iiitvadodara.ac.in",
+      "free": true
+    },
+    {
+      "id": "sports-2026",
+      "title": "Annual Sports Meet",
+      "date": "2026-12-08",
+      "seats": 42,
+      "online": false,
+      "category": "Sports",
+      "description": "A campus sports event with activities and friendly competitions for students.",
+      "image": "images/sports.jpeg",
+      "venue": "Sports Ground",
+      "time": "To be announced",
+      "organizer": "IIIT Vadodara",
+      "organizerEmail": "events@iiitvadodara.ac.in",
+      "free": true
+    },
+    {
+      "id": "hack-2027",
+      "title": "CodeSprint Hackathon",
+      "date": "2026-12-10",
+      "seats": 2,
+      "online": false,
+      "category": "Technical",
+      "description": "A technical hackathon where students build useful solutions and present their ideas.",
+      "image": "images/hack.png",
+      "venue": "Computer Centre",
+      "time": "To be announced",
+      "organizer": "IIIT Vadodara",
+      "organizerEmail": "events@iiitvadodara.ac.in",
+      "free": true
+    },
+    {
+      "id": "iiit-vadodara-live-concert-2026",
+      "title": "IIIT Vadodara Live Concert 2026",
+      "date": "2026-12-12",
+      "time": "6:00 PM onwards",
+      "venue": "IIIT Vadodara College Ground",
+      "category": "Music & Entertainment",
+      "description": "Join us for an exciting musical evening with live performances, student bands, food stalls, and lots of fun!",
+      "organizer": "IIIT Vadodara",
+      "organizerEmail": "events@iiitvadodara.ac.in",
+      "image": "images/concert.jpeg",
+      "seats": 150,
+      "online": false,
+      "free": false
+    }
+  ],
+  "registrations": []
+}
